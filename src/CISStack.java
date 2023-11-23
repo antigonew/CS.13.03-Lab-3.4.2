@@ -1,24 +1,50 @@
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.EmptyStackException;
 
 public class CISStack {
+    private ArrayList<Integer> stack;
+    private int size;
+    private int pointer;
 
-    // Array property.
+    public CISStack(int capacity) {
+        stack = new ArrayList<>(capacity);
+        for (int i = 0; i < capacity; i++) {
+            stack.add(null);
+        }
+        size = 0;
+        pointer = -1;
+    }
 
-    // Size property.
+    public void push(int data) {
+        if (pointer == stack.size() - 1) {
+            throw new StackOverflowError();
+        }
+        pointer++;
+        stack.set(pointer, data);
+        size++;
+    }
 
-    // Pointer property
+    public int pop() {
+        if (isEmpty()) {
+            throw new EmptyStackException();
+        }
+        int data = stack.get(pointer);
+        stack.set(pointer, null);
+        pointer--;
+        size--;
+        return data;
+    }
 
-    // Constructor.
+    public boolean isEmpty() {
+        return size == 0;
+    }
 
-    // Push. This method pushes a value onto the top of the stack.
+    public int size() {
+        return size;
+    }
 
-    // Pop. This method pops a value from the top of the stack.
-
-    // isEmpty. Returns a boolean indicating whether the linked list is empty.
-
-    // size. Returns the size of the queue.
-
-    // toString. Returns a description of the queue in, for example, the following format:
-    // CISStack{stack=[7, 11], size=2, pointer=1}
-
+    @Override
+    public String toString() {
+        return "CISStack{stack=" + stack + ", size=" + size + ", pointer=" + pointer + "}";
+    }
 }
